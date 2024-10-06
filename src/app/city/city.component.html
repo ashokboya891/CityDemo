@@ -1,0 +1,17 @@
+<div>
+    <h2>Cities</h2>
+    
+    <input [(ngModel)]="newCityName" placeholder="Enter city name">
+    <button (click)="addCity()">Add City</button>
+    
+    <ul>
+      <li *ngFor="let city of cities">
+        {{ city.cityName }}
+        <button (click)="editCity(city)">Edit</button>
+        <button (click)="deleteCity(city.cityId)">Delete</button>
+      </li>
+    </ul>
+  
+    <button (click)="updateCity()" *ngIf="editedCityId">Update City</button>
+  </div>
+  
