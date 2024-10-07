@@ -1,17 +1,32 @@
-<div>
-    <h2>Cities</h2>
-    
-    <input [(ngModel)]="newCityName" placeholder="Enter city name">
-    <button (click)="addCity()">Add City</button>
-    
-    <ul>
-      <li *ngFor="let city of cities">
-        {{ city.cityName }}
-        <button (click)="editCity(city)">Edit</button>
-        <button (click)="deleteCity(city.cityId)">Delete</button>
-      </li>
-    </ul>
+<div class="container">
+  <h2 class="app-title">Cities</h2>
   
-    <button (click)="updateCity()" *ngIf="editedCityId">Update City</button>
+  <div class="form-field">
+      <input [(ngModel)]="newCityName" placeholder="Enter city name" class="form-input">
+      <button (click)="addCity()" class="button button-blue-back">Add City</button>
+      <button type="button" class="button button-blue-back mt" (click)="refreshClicked()">Refresh</button>
+
   </div>
-  
+
+  <div class="table-container">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>City Name</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let city of cities">
+                  <td class="city-name">{{ city.cityName }}</td>
+                  <td>
+                      <button (click)="editCity(city)" class="button button-green-back">Edit</button>
+                      <button (click)="deleteCity(city.cityId)" class="button button-red-back">Delete</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <button (click)="updateCity()" *ngIf="editedCityId" class="button button-blue-back">Update City</button>
+</div>

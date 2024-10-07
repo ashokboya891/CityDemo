@@ -19,7 +19,7 @@ export class RegisterComponent {
     this.registerForm = new FormGroup({
       personName: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required]),
-      phoneNumber: new FormControl(null, [Validators.required]),
+      phone: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
       confirmPassword: new FormControl(null, [Validators.required])
     },
@@ -38,7 +38,7 @@ export class RegisterComponent {
   }
 
   get register_phoneNumberControl(): any {
-    return this.registerForm.controls["phoneNumber"];
+    return this.registerForm.controls["phone"];
   }
 
   get register_passwordControl(): any {
@@ -60,6 +60,8 @@ export class RegisterComponent {
 
           this.isRegisterFormSubmitted = false;
           localStorage["token"] = response.token;
+          localStorage["refreshToken"] = response.refreshToken;
+
 
           this.router.navigate(['/cities']);
 

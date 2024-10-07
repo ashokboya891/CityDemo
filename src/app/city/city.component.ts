@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { City } from '../City';
 import { CityService } from '../city.service';
 import { HttpHeaders } from '@angular/common/http';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-city',
@@ -13,7 +14,7 @@ export class CityComponent {
   newCityName: string = '';
   editedCityId: string | null = null;
   
-  constructor(private cityService: CityService) {}
+  constructor(private cityService: CityService,private accountService:AccountService) {}
 
   ngOnInit(): void {
     this.loadCities();
@@ -57,6 +58,23 @@ export class CityComponent {
   deleteCity(cityId: string) {
     this.cityService.deleteCity(cityId).subscribe(() => {
       this.loadCities();
+    });
+  }
+
+  refreshClicked(): void {
+    this.accountService.postGenerateNewToken().subscribe({
+      next: (response: any) => {
+        localStorage["token"] = response.token;
+        localStorage["refreshToken"] = response.refreshToken;
+
+        this.loadCities();
+      },
+
+      error: (error: any) => {
+        console.log(error);
+      },
+
+      complete: () => { },
     });
   }
 }
