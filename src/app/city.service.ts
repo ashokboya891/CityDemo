@@ -26,7 +26,7 @@ export class CityService {
     let headers = new HttpHeaders();
     headers = headers.append("Authorization", `Bearer ${localStorage['token']}`);
    // headers = headers.append("Authorization", `Bearer dummy token`);
-
+    // debugger
     return this.http.get<City[]>(this.apiUrl,{headers:headers});
   }
 

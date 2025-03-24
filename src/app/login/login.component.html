@@ -1,9 +1,9 @@
 <div class="w-75 margin-auto">
-    <div class="form-container">
+    <div class="form-container" *ngIf="!isUserLoggedIn()">
   
       <h2>Login</h2>
   
-      <form [formGroup]="loginForm" (ngSubmit)="loginSubmitted()">
+      <form [formGroup]="loginForm" (ngSubmit)="loginSubmitted()" >
   
   
         <!-- email -->

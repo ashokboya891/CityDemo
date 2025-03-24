@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { City } from '../City';
 import { CityService } from '../city.service';
-import { HttpHeaders } from '@angular/common/http';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -14,30 +13,31 @@ export class CityComponent {
   newCityName: string = '';
   editedCityId: string | null = null;
   
-  constructor(private cityService: CityService,private accountService:AccountService) {}
+  constructor(private cityService: CityService, private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.loadCities();
   }
 
   loadCities() {
-  
-
     this.cityService.getCities().subscribe(data => {
       this.cities = data;
     });
   }
 
   addCity() {
+    if(this.newCityName==='')
+    {
+      alert("City Name is required");
+      return;
+    }
     this.cityService.createCity(this.newCityName).subscribe(() => {
         this.loadCities();
         this.newCityName = ''; // Clear the input
     }, error => {
         console.error('Error creating city:', error);
     });
-}
-
-
+  }
 
   editCity(city: City) {
     this.editedCityId = city.cityId;
@@ -50,9 +50,14 @@ export class CityComponent {
       this.cityService.updateCity(updatedCity).subscribe(() => {
         this.loadCities();
         this.newCityName = '';
-        this.editedCityId = null; // Clear the edited state
+        this.editedCityId = null; // Reset to add mode
       });
     }
+  }
+
+  cancelEdit() {
+    this.editedCityId = null;
+    this.newCityName = ''; // Reset input field
   }
 
   deleteCity(cityId: string) {
@@ -66,15 +71,11 @@ export class CityComponent {
       next: (response: any) => {
         localStorage["token"] = response.token;
         localStorage["refreshToken"] = response.refreshToken;
-
         this.loadCities();
       },
-
       error: (error: any) => {
         console.log(error);
-      },
-
-      complete: () => { },
+      }
     });
   }
 }

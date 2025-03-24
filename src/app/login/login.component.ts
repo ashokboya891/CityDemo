@@ -20,7 +20,11 @@ export class LoginComponent {
       password: new FormControl(null, [Validators.required]),
     });
   }
+  isUserLoggedIn(): boolean {
+    return !!localStorage.getItem('email');
+  }
 
+  
 
   get login_emailControl(): any {
     return this.loginForm.controls["email"];
@@ -44,7 +48,7 @@ export class LoginComponent {
           this.accountService.currentUserName = response.email;
           localStorage["token"] = response.token;
           localStorage["refreshToken"] = response.refreshToken;
-
+          localStorage["email"] = response.email;
 
           this.router.navigate(['/cities']);
 

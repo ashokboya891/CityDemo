@@ -12,35 +12,33 @@
 
         <div class="flex-1" id="search-box-div">
           <div class="navbar account-links">
-
-            <ul *ngIf="!accountService.currentUserName">
+            <ul *ngIf="!isUserLoggedIn()">
               <li>
-                <a [routerLink]="[ '/login' ]">Login</a>
+                <a [routerLink]="['/login']">Login</a>
               </li>
-
               <li>
-                <a [routerLink]="[ '/register' ]">Register</a>
+                <a [routerLink]="['/register']">Register</a>
               </li>
             </ul>
 
-            <ul *ngIf="accountService.currentUserName">
+            <ul *ngIf="isUserLoggedIn()">
               <li>
-                <span>Welcome, {{ accountService.currentUserName }}!</span>
+                <span>Welcome, {{ getUserName() }}!</span>
               </li>
               <li>
                 <a href="#" (click)="onLogOutClicked()">Logout</a>
               </li>
             </ul>
-
           </div>
         </div>
+
       </div>
     </div>
 
     <div class="navbar mb">
       <ul>
         <li>
-          <a [routerLink]="[ '/cities']" [routerLinkActive]="[ 'nav-active']">Cities</a>
+          <a [routerLink]="['/cities']" [routerLinkActive]="['nav-active']">Cities</a>
         </li>
       </ul>
     </div>
@@ -48,5 +46,6 @@
     <div class="body">
       <router-outlet></router-outlet>
     </div>
+    
   </div>
 </div>
